@@ -1,4 +1,6 @@
-import beans.Cliente;
+package repository;
+
+import model.Cliente;
 import conexao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

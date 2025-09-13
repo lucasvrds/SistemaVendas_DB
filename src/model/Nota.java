@@ -1,5 +1,7 @@
-package beans;
+package model;
 
+import model.ItemNota;
+import model.Cliente;
 import java.util.Date;
 import java.util.List;
 

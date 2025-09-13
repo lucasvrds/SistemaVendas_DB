@@ -1,4 +1,6 @@
-import beans.Produto;
+package repository;
+
+import model.Produto;
 import conexao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
