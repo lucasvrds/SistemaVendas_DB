@@ -30,7 +30,7 @@ public class ProdutoDAO {
             stmt.setInt(4, produto.getQtdEstoque());
             stmt.execute();
         } catch (SQLException ex) {
-            System.out.println("Erro ao inserir produto: " + ex.getMessage());
+            System.out.println("Erro ao inserir produto: " + ex.getMessage()); this.conexao.getConexao();
         }
     }
 
@@ -40,17 +40,16 @@ public class ProdutoDAO {
             PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmt.setInt(1, codProduto);
             ResultSet rs = stmt.executeQuery();
+            Produto p = new Produto();
 
-            if (rs.first()) {
-                Produto p = new Produto();
-                p.setCodProduto(rs.getInt("codProduto"));
-                p.setNome(rs.getString("nome"));
+                rs.first();                
+                p.setCodProduto(codProduto);
+                p.setNome(("nome"));
                 p.setDescricao(rs.getString("descricao"));
                 p.setPrecoVenda(rs.getDouble("precoVenda"));
                 p.setQtdEstoque(rs.getInt("quantidadeEstoque"));
                 return p;
-            }
-            return null;
+                
         } catch (SQLException ex) {
             System.out.println("Erro ao consultar produto: " + ex.getMessage());
             return null;
@@ -60,6 +59,7 @@ public class ProdutoDAO {
     public void editar(Produto produto) {
         try {
             String sql = "UPDATE produto SET nome=?, descricao=?, precoVenda=?, quantidadeEstoque=? WHERE codProduto=?";
+            
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, produto.getNome());
             stmt.setString(2, produto.getDescricao());
@@ -76,6 +76,7 @@ public class ProdutoDAO {
         try {
             String sql = "DELETE FROM produto WHERE codProduto = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
+            
             stmt.setInt(1, codProduto);
             stmt.execute();
         } catch (SQLException ex) {
