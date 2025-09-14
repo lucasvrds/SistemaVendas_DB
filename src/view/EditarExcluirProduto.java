@@ -44,7 +44,7 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
         txt_precoVenda = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txt_quantidadeEstoque = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        Atualizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
@@ -114,14 +114,19 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atualizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Atualizar.setText("Atualizar");
+        Atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                AtualizarActionPerformed(evt);
             }
         });
 
         jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +135,7 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
@@ -204,7 +209,7 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
                     .addComponent(txt_quantidadeEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(Atualizar)
                     .addComponent(jButton3))
                 .addContainerGap())
         );
@@ -236,9 +241,19 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_quantidadeEstoqueActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
+        Produto p = new Produto();
+        
+        p.setCodProduto(Integer.parseInt(txt_codigoProduto1.getText()));
+        p.setNome(txt_nome.getText());
+        p.setDescricao(txt_descricao.getText());
+        p.setPrecoVenda(Double.parseDouble(txt_precoVenda.getText()));
+        p.setQtdEstoque(Integer.parseInt(txt_quantidadeEstoque.getText()));
+        
+        ProdutoDAO pDAO = new ProdutoDAO();
+        pDAO.editar(p);
+        limparFormulario();
+    }//GEN-LAST:event_AtualizarActionPerformed
 
     private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
         int codProduto = Integer.parseInt(txt_codigoProduto.getText());
@@ -257,6 +272,13 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
             txt_quantidadeEstoque.setText(String.valueOf(p.getQtdEstoque()));
         }
     }//GEN-LAST:event_ConsultarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ProdutoDAO pDAO = new ProdutoDAO();
+        
+        pDAO.excluir(Integer.parseInt(txt_codigoProduto.getText()));
+        limparFormulario();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,8 +319,8 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Atualizar;
     private javax.swing.JButton Consultar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
