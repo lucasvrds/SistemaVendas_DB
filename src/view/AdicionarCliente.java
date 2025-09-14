@@ -5,6 +5,9 @@
  */
 package view;
 
+import model.Cliente;
+import repository.ClienteDAO;
+
 /**
  *
  * @author lucas
@@ -27,21 +30,125 @@ public class AdicionarCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txt_nome = new javax.swing.JTextField();
+        nome = new javax.swing.JLabel();
+        endereco = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        telefone = new javax.swing.JLabel();
+        txt_endereco = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
+        txt_telefone = new javax.swing.JTextField();
+        btn_salvar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Adicionar Cliente");
+
+        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nome.setText("Nome");
+
+        endereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        endereco.setText("Endereço");
+
+        email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        email.setText("E-mail");
+
+        telefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        telefone.setText("Telefone");
+
+        txt_endereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txt_email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txt_telefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_telefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefoneActionPerformed(evt);
+            }
+        });
+
+        btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(endereco)
+                            .addComponent(nome)
+                            .addComponent(email)
+                            .addComponent(telefone))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(btn_salvar))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(endereco)
+                    .addComponent(txt_endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email)
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(telefone)
+                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_salvar))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefoneActionPerformed
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+
+        Cliente c = new Cliente();
+        c.setNome(txt_nome.getText());
+        c.setEndereco(txt_endereco.getText());
+        c.setEmail(txt_email.getText());
+        c.setTelefone(txt_telefone.getText());
+       
+        
+        ClienteDAO cDAO = new ClienteDAO();
+        cDAO.inserir(c);
+        limparFormulario();
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +186,21 @@ public class AdicionarCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_salvar;
+    private javax.swing.JLabel email;
+    private javax.swing.JLabel endereco;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel nome;
+    private javax.swing.JLabel telefone;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_endereco;
+    private javax.swing.JTextField txt_nome;
+    private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
+    private void limparFormulario() {
+            txt_nome.setText("");
+            txt_endereco.setText("");
+            txt_email.setText("");
+            txt_telefone.setText("");           
+    }
 }
