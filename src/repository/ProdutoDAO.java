@@ -47,7 +47,7 @@ public class ProdutoDAO {
                 p.setNome(("nome"));
                 p.setDescricao(rs.getString("descricao"));
                 p.setPrecoVenda(rs.getDouble("precoVenda"));
-                p.setQtdEstoque(rs.getInt("quantidadeEstoque"));
+                p.setQtdEstoque(rs.getInt("qtdEstoque"));
                 return p;
                 
         } catch (SQLException ex) {
@@ -58,7 +58,7 @@ public class ProdutoDAO {
 
     public void editar(Produto produto) {
         try {
-            String sql = "UPDATE produto SET nome=?, descricao=?, precoVenda=?, quantidadeEstoque=? WHERE codProduto=?";
+            String sql = "UPDATE produto SET nome=?, descricao=?, precoVenda=?, qtdEstoque=? WHERE codProduto=?";
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, produto.getNome());
