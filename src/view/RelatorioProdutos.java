@@ -5,6 +5,11 @@
  */
 package view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
+import repository.ProdutoDAO;
+
 /**
  *
  * @author vitor
@@ -16,6 +21,7 @@ public class RelatorioProdutos extends javax.swing.JFrame {
      */
     public RelatorioProdutos() {
         initComponents();
+        preencheTabela();
     }
 
     /**
@@ -29,14 +35,14 @@ public class RelatorioProdutos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_clientes = new javax.swing.JTable();
+        tbl_produtos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Relatório dos Produtos");
 
-        tbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -44,10 +50,18 @@ public class RelatorioProdutos extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Endereço", "E-mail", "Telefone"
+                "Id", "Nome", "Descrição", "Preço de Venda", "Quantidade"
             }
-        ));
-        jScrollPane1.setViewportView(tbl_clientes);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbl_produtos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,6 +128,25 @@ public class RelatorioProdutos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbl_clientes;
+    private javax.swing.JTable tbl_produtos;
     // End of variables declaration//GEN-END:variables
+
+    private void preencheTabela() {
+        ProdutoDAO pDAO = new ProdutoDAO();
+        List<Produto> listaProdutos = pDAO.getProduto();
+
+        DefaultTableModel model = (DefaultTableModel) tbl_produtos.getModel();
+        model.setRowCount(0);
+
+        for (Produto p : listaProdutos) {
+            model.addRow(new Object[]{
+                p.getCodProduto(),
+                p.getNome(),
+                p.getDescricao(),
+                p.getPrecoVenda(),
+                p.getQtdEstoque()
+            });
+
+        }
+    }
 }

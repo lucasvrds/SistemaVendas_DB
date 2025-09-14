@@ -256,7 +256,7 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
         int codProduto = Integer.parseInt(txt_codigoProduto.getText());
         ProdutoDAO pDAO = new ProdutoDAO();
 
-        Produto p = pDAO.getProduto(codProduto);
+        Produto p = pDAO.getProdutoId(codProduto);
         if (p == null) {
             limparFormulario();
             JOptionPane.showMessageDialog(this, "Produto não encontrada!");
