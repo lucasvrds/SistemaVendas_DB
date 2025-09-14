@@ -44,7 +44,7 @@ public class ProdutoDAO {
 
                 rs.first();                
                 p.setCodProduto(codProduto);
-                p.setNome(("nome"));
+                p.setNome(rs.getString("nome"));
                 p.setDescricao(rs.getString("descricao"));
                 p.setPrecoVenda(rs.getDouble("precoVenda"));
                 p.setQtdEstoque(rs.getInt("qtdEstoque"));
