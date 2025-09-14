@@ -58,7 +58,7 @@ public class EditarCliente extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Editar e excluir cliente");
+        jLabel1.setText("Editar e Excluir Cliente");
 
         jLabel2.setText("Codigo do Cliente");
 
