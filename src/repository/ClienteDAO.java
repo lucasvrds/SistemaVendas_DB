@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
+ * 
  * @author lucas & vitor
  */
 public class ClienteDAO {
@@ -50,16 +52,15 @@ public class ClienteDAO {
                 c.setTelefone(rs.getString("telefone"));
                 return c;
             }
-            return null;
         } catch (SQLException ex) {
             System.out.println("Erro ao consultar cliente: " + ex.getMessage());
-            return null;
         }
+        return null;
     }
 
     public void editar(Cliente cliente) {
+        String sql = "UPDATE cliente SET nome=?, endereco=?, email=?, telefone=? WHERE codCliente=?";
         try {
-            String sql = "UPDATE cliente SET nome=?, endereco=?, email=?, telefone=? WHERE codCliente=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getEndereco());
@@ -73,13 +74,34 @@ public class ClienteDAO {
     }
 
     public void excluir(int codCliente) {
+        String sql = "DELETE FROM cliente WHERE codCliente = ?";
         try {
-            String sql = "DELETE FROM cliente WHERE codCliente = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, codCliente);
             stmt.execute();
         } catch (SQLException ex) {
             System.out.println("Erro ao excluir cliente: " + ex.getMessage());
         }
+    }
+
+    public List<Cliente> getClientes() {
+        List<Cliente> listaClientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setCodCliente(rs.getInt("codCliente"));
+                c.setNome(rs.getString("nome"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                listaClientes.add(c);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao consultar clientes: " + ex.getMessage());
+        }
+        return listaClientes;
     }
 }

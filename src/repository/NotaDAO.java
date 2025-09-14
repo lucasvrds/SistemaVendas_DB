@@ -8,7 +8,7 @@ package repository;
 
 /**
  *
- * @author lucas
+ * @author lucas e vitor
  */
 public class NotaDAO {
     
