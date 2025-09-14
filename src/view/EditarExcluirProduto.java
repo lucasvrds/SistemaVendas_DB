@@ -1,16 +1,19 @@
-
 package view;
+
+import javax.swing.JOptionPane;
+import model.Produto;
+import repository.ProdutoDAO;
 
 /**
  *
  * @author vitor e lucas
  */
-public class EditaExcluirrProduto extends javax.swing.JFrame {
+public class EditarExcluirProduto extends javax.swing.JFrame {
 
     /**
      * Creates new form EditarProduto
      */
-    public EditaExcluirrProduto() {
+    public EditarExcluirProduto() {
         initComponents();
     }
 
@@ -30,10 +33,10 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
         txt_codigoProduto = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Consultar = new javax.swing.JButton();
         txt_codigoProduto1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txt_codigoProduto2 = new javax.swing.JTextField();
+        txt_nome = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_descricao = new javax.swing.JTextArea();
@@ -67,8 +70,14 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Codigo do Produto");
 
-        jButton1.setText("Consultar");
+        Consultar.setText("Consultar");
+        Consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarActionPerformed(evt);
+            }
+        });
 
+        txt_codigoProduto1.setEditable(false);
         txt_codigoProduto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_codigoProduto1ActionPerformed(evt);
@@ -77,9 +86,9 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Nome Produto");
 
-        txt_codigoProduto2.addActionListener(new java.awt.event.ActionListener() {
+        txt_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_codigoProduto2ActionPerformed(evt);
+                txt_nomeActionPerformed(evt);
             }
         });
 
@@ -133,7 +142,7 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txt_codigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(103, 103, 103)
-                        .addComponent(jButton1))
+                        .addComponent(Consultar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +153,7 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_codigoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_codigoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -170,7 +179,7 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_codigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(Consultar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,7 +189,7 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txt_codigoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -193,7 +202,7 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txt_quantidadeEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
@@ -211,9 +220,9 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoProduto1ActionPerformed
 
-    private void txt_codigoProduto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoProduto2ActionPerformed
+    private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_codigoProduto2ActionPerformed
+    }//GEN-LAST:event_txt_nomeActionPerformed
 
     private void txt_codigoProduto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoProduto3ActionPerformed
         // TODO add your handling code here:
@@ -230,6 +239,24 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
+        int codProduto = Integer.parseInt(txt_codigoProduto.getText());
+        ProdutoDAO pDAO = new ProdutoDAO();
+
+        Produto p = pDAO.getProduto(codProduto);
+        if (p == null) {
+            limparFormulario();
+            JOptionPane.showMessageDialog(this, "Produto não encontrada!");
+        }
+        else{
+            txt_codigoProduto1.setText(String.valueOf(p.getCodProduto()));
+            txt_nome.setText(p.getNome());
+            txt_descricao.setText(p.getDescricao());
+            txt_precoVenda.setText(String.valueOf(p.getPrecoVenda()));
+            txt_quantidadeEstoque.setText(String.valueOf(p.getQtdEstoque()));
+        }
+    }//GEN-LAST:event_ConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,27 +275,29 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditaExcluirrProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarExcluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditaExcluirrProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarExcluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditaExcluirrProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarExcluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditaExcluirrProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarExcluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditaExcluirrProduto().setVisible(true);
+                new EditarExcluirProduto().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Consultar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -283,10 +312,17 @@ public class EditaExcluirrProduto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txt_codigoProduto;
     private javax.swing.JTextField txt_codigoProduto1;
-    private javax.swing.JTextField txt_codigoProduto2;
     private javax.swing.JTextField txt_codigoProduto3;
     private javax.swing.JTextArea txt_descricao;
+    private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_precoVenda;
     private javax.swing.JTextField txt_quantidadeEstoque;
     // End of variables declaration//GEN-END:variables
+
+    private void limparFormulario() {
+        txt_nome.setText("");
+        txt_descricao.setText("");
+        txt_precoVenda.setText("");
+        txt_quantidadeEstoque.setText("");
+    }
 }
