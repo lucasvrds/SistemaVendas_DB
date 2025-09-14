@@ -55,7 +55,7 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(317, 249));
 
         jLabel1.setText("Editar e excluir produto");

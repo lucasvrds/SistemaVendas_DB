@@ -49,7 +49,7 @@ public class EditarCliente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txt_telefone = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txt_nomeCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +100,7 @@ public class EditarCliente extends javax.swing.JFrame {
             }
         });
 
+        txt_idCliente2.setEditable(false);
         txt_idCliente2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_idCliente2ActionPerformed(evt);
@@ -225,6 +226,7 @@ public class EditarCliente extends javax.swing.JFrame {
 
         Cliente c = cDAO.getCliente(IdCliente);
         if(c == null){
+            txt_idCliente2.setText("");
             txt_nomeCliente.setText("");
             txt_endereco.setText("");
             txt_email.setText("");
@@ -233,6 +235,7 @@ public class EditarCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cliente não encontrado!");
         }
         else{
+            txt_idCliente2.setText(String.valueOf(c.getCodCliente()));
             txt_nomeCliente.setText(c.getNome());
             txt_endereco.setText(c.getEndereco());
             txt_email.setText(c.getEmail());

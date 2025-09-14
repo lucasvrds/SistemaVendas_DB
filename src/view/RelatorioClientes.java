@@ -37,7 +37,7 @@ public class RelatorioClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_clientes = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Relatório dos Clientes");
