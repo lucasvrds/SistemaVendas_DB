@@ -16,6 +16,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+
+        menuCadastroClientes.setText("Cadastro de Clientes");
+        menuCadastroClientes.addActionListener(evt -> menu_AdcClienteActionPerformed(evt));
+        menuCadastro.add(menuCadastroClientes);
+
+        menuEditarClientes.setText("Editar Clientes");
+        menuEditarClientes.addActionListener(evt -> menu_EdtClienteActionPerformed(evt));
+        menuCadastro.add(menuEditarClientes);
+
+        menuCadastroProdutos.setText("Cadastro de Produtos");
+        menuCadastroProdutos.addActionListener(evt -> menu_AdcProdutoActionPerformed(evt));
+        menuCadastro.add(menuCadastroProdutos);
+
+        menuEditarProdutos.setText("Editar Produtos");
+        menuEditarProdutos.addActionListener(evt -> menu_edtClienteActionPerformed(evt));
+        menuCadastro.add(menuEditarProdutos);
+
+        menuRelatorioClientes.setText("Relatório de Clientes");
+        menuRelatorioClientes.addActionListener(evt -> menu_rltClienteActionPerformed(evt));
+        menuRelatorios.add(menuRelatorioClientes);
+
+        menuSair.setText("Sair");
+        menuSair.addActionListener(evt -> menuSairActionPerformed(evt));
+        menuArquivo.add(menuSair);
+
     }
 
     /**
@@ -27,60 +52,60 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuBarra = new javax.swing.JMenuBar();
+        menuArquivo = new javax.swing.JMenu();
+        menuSair = new javax.swing.JMenuItem();
+        menuCadastro = new javax.swing.JMenu();
+        menuCadastroClientes = new javax.swing.JMenuItem();
+        menuEditarClientes = new javax.swing.JMenuItem();
+        menuCadastroProdutos = new javax.swing.JMenuItem();
+        menuEditarProdutos = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        menuRelatorioClientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Arquivo");
+        menuArquivo.setText("Arquivo");
 
-        jMenuItem3.setText("Sair");
-        jMenu1.add(jMenuItem3);
+        menuSair.setText("Sair");
+        menuArquivo.add(menuSair);
 
-        jMenuBar1.add(jMenu1);
+        menuBarra.add(menuArquivo);
 
-        jMenu2.setText("Cadastro");
+        menuCadastro.setText("Cadastro");
 
-        jMenuItem1.setText("Cadastro de Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastroClientes.setText("Cadastro de Clientes");
+        menuCadastroClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuCadastroClientesActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        menuCadastro.add(menuCadastroClientes);
 
-        jMenuItem5.setText("Editar Clientes");
-        jMenu2.add(jMenuItem5);
+        menuEditarClientes.setText("Editar Clientes");
+        menuCadastro.add(menuEditarClientes);
 
-        jMenuItem2.setText("Cadastro de Produtos");
-        jMenu2.add(jMenuItem2);
+        menuCadastroProdutos.setText("Cadastro de Produtos");
+        menuCadastro.add(menuCadastroProdutos);
 
-        jMenuItem6.setText("Editar Produtos");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        menuEditarProdutos.setText("Editar Produtos");
+        menuEditarProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                menuEditarProdutosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        menuCadastro.add(menuEditarProdutos);
 
-        jMenuBar1.add(jMenu2);
+        menuBarra.add(menuCadastro);
 
-        jMenu3.setText("Relatórios");
+        menuRelatorios.setText("Relatórios");
 
-        jMenuItem4.setText("Relatorio de Clientes");
-        jMenu3.add(jMenuItem4);
+        menuRelatorioClientes.setText("Relatorio de Clientes");
+        menuRelatorios.add(menuRelatorioClientes);
 
-        jMenuBar1.add(jMenu3);
+        menuBarra.add(menuRelatorios);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBarra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,13 +121,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void menuCadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroClientesActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_menuCadastroClientesActionPerformed
+
+    private void menuEditarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_menuEditarProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,38 +165,45 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu menuArquivo;
+    private javax.swing.JMenuBar menuBarra;
+    private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenuItem menuCadastroClientes;
+    private javax.swing.JMenuItem menuCadastroProdutos;
+    private javax.swing.JMenuItem menuEditarClientes;
+    private javax.swing.JMenuItem menuEditarProdutos;
+    private javax.swing.JMenuItem menuRelatorioClientes;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenuItem menuSair;
     // End of variables declaration//GEN-END:variables
-    
+
     private void menu_AdcClienteActionPerformed(java.awt.event.ActionEvent evt) {
         AdicionarCliente adcCliente = new AdicionarCliente();
         adcCliente.setVisible(true);
     }
+
     private void menu_EdtClienteActionPerformed(java.awt.event.ActionEvent evt) {
         EditarCliente edtCliente = new EditarCliente();
         edtCliente.setVisible(true);
     }
-    private void menu_rltClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        RelatorioClientes rltClientes = new RelatorioClientes();
-        rltClientes.setVisible(true);
-    }
+
     private void menu_AdcProdutoActionPerformed(java.awt.event.ActionEvent evt) {
         AdicionarProduto adcProduto = new AdicionarProduto();
         adcProduto.setVisible(true);
     }
+
     private void menu_edtClienteActionPerformed(java.awt.event.ActionEvent evt) {
         EditarExcluirProduto edtProduto = new EditarExcluirProduto();
         edtProduto.setVisible(true);
     }
-    
-    
+
+    private void menu_rltClienteActionPerformed(java.awt.event.ActionEvent evt) {
+        RelatorioClientes rltClientes = new RelatorioClientes();
+        rltClientes.setVisible(true);
+    }
+
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
+
 }
