@@ -40,7 +40,8 @@ public class ItemNotaDAO {
 
     public List<ItemNota> listarPorNota(Nota nota) {
         List<ItemNota> lista = new ArrayList<>();
-        String sql = "SELECT i.cod_item_nota, i.quantidade_vendida, " + "p.cod_produto, p.nome, p.descricao, p.preco_venda, p.quantidade_estoque " + "FROM item_nota i " + "JOIN produto p ON i.produto_id = p.cod_produto " + "WHERE i.nota_id = ?";
+        String sql = "SELECT i.codItemNota, i.quantidadeVendida, " + "p.codProduto, p.nome, p.descricao, p.precoVenda, p.qtdEstoque " + "FROM itemnota i "
+                + "JOIN produto p ON i.codItemNota = p.codProduto " + "WHERE i.codItemNota = ?";
         try{
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setInt(1, nota.getCodNota());
@@ -48,36 +49,36 @@ public class ItemNotaDAO {
 
             while (rs.next()) {
                 Produto produto = new Produto();
-                produto.setCodProduto(rs.getInt("cod_produto"));
+                produto.setCodProduto(rs.getInt("codProduto"));
                 produto.setNome(rs.getString("nome"));
                 produto.setDescricao(rs.getString("descricao"));
-                produto.setPrecoVenda(rs.getDouble("preco_venda"));
-                produto.setQtdEstoque(rs.getInt("quantidade_estoque"));
+                produto.setPrecoVenda(rs.getDouble("precoVenda"));
+                produto.setQtdEstoque(rs.getInt("qtdEstoque"));
 
                 ItemNota item = new ItemNota();
-                item.setCodItemNota(rs.getInt("cod_item_nota"));
-                item.setQuantidadeVendida(rs.getInt("quantidade_vendida"));
+                item.setCodItemNota(rs.getInt("codItemNota"));
+                item.setQuantidadeVendida(rs.getInt("quantidadeVendida"));
                 item.setCodProduto(produto);
                 item.setCodNota(nota);
 
                 lista.add(item);
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar item nota: " + ex.getMessage());
         }
         return lista;
     }
 
     public void excluirPorNota(Nota nota) {
-        String sql = "DELETE FROM item_nota WHERE nota_id = ?";
+        String sql = "DELETE FROM itemnota WHERE codNota = ?";
         try{
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, nota.getCodNota());
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao deletar item nota: " + ex.getMessage());
         }
     }
 
