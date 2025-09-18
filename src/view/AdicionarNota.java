@@ -5,19 +5,16 @@
  */
 package view;
 
-import model.Cliente;
-import repository.ClienteDAO;
-
 /**
  *
  * @author lucas
  */
-public class AdicionarCliente extends javax.swing.JFrame {
+public class AdicionarNota extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdicionarCliente
+     * Creates new form AdicionarNota
      */
-    public AdicionarCliente() {
+    public AdicionarNota() {
         initComponents();
     }
 
@@ -30,6 +27,7 @@ public class AdicionarCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn_salvar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
         nome = new javax.swing.JLabel();
@@ -39,12 +37,19 @@ public class AdicionarCliente extends javax.swing.JFrame {
         txt_endereco = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
         txt_telefone = new javax.swing.JTextField();
-        btn_salvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Adicionar Cliente");
+        jLabel1.setText("Adicionar Nota");
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -71,14 +76,6 @@ public class AdicionarCliente extends javax.swing.JFrame {
             }
         });
 
-        btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_salvar.setText("Salvar");
-        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_salvarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,18 +96,18 @@ public class AdicionarCliente extends javax.swing.JFrame {
                             .addComponent(txt_email)
                             .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(95, 95, 95)
                         .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addComponent(btn_salvar)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nome))
@@ -127,15 +124,11 @@ public class AdicionarCliente extends javax.swing.JFrame {
                     .addComponent(telefone)
                     .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_salvar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_telefoneActionPerformed
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
 
@@ -144,12 +137,15 @@ public class AdicionarCliente extends javax.swing.JFrame {
         c.setEndereco(txt_endereco.getText());
         c.setEmail(txt_email.getText());
         c.setTelefone(txt_telefone.getText());
-       
-        
+
         ClienteDAO cDAO = new ClienteDAO();
         cDAO.inserir(c);
         limparFormulario();
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void txt_telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,20 +164,20 @@ public class AdicionarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdicionarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdicionarNota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdicionarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdicionarNota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdicionarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdicionarNota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdicionarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdicionarNota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdicionarCliente().setVisible(true);
+                new AdicionarNota().setVisible(true);
             }
         });
     }
@@ -198,10 +194,4 @@ public class AdicionarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
-    private void limparFormulario() {
-            txt_nome.setText("");
-            txt_endereco.setText("");
-            txt_email.setText("");
-            txt_telefone.setText("");           
-    }
 }

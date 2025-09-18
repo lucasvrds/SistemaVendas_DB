@@ -9,7 +9,7 @@ public class ItemNota {
     private int quantidadeVendida;
     private Nota codNota;
     private Produto codProduto;
-
+    
     public int getCodItemNota() {
         return codItemNota;
     }
