@@ -5,9 +5,12 @@
  */
 package view;
 
+import model.Nota;
+import repository.NotaDAO;
+
 /**
  *
- * @author lucas
+ * @author lucas & vitor
  */
 public class AdicionarNota extends javax.swing.JFrame {
 
@@ -29,14 +32,14 @@ public class AdicionarNota extends javax.swing.JFrame {
 
         btn_salvar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txt_nome = new javax.swing.JTextField();
-        nome = new javax.swing.JLabel();
-        endereco = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
-        telefone = new javax.swing.JLabel();
-        txt_endereco = new javax.swing.JTextField();
-        txt_email = new javax.swing.JTextField();
-        txt_telefone = new javax.swing.JTextField();
+        txt_idCliente = new javax.swing.JTextField();
+        idCliente = new javax.swing.JLabel();
+        nomeProduto = new javax.swing.JLabel();
+        data = new javax.swing.JLabel();
+        quantidadeProdutos = new javax.swing.JLabel();
+        txt_nomeProduto = new javax.swing.JTextField();
+        txt_data = new javax.swing.JTextField();
+        txt_quantidadeProduto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,28 +54,28 @@ public class AdicionarNota extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Adicionar Nota");
 
-        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_idCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nome.setText("Nome");
+        idCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idCliente.setText("IdCliente");
 
-        endereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        endereco.setText("Endereço");
+        nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomeProduto.setText("Nome do Produto");
 
-        email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        email.setText("E-mail");
+        data.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        data.setText("Data");
 
-        telefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        telefone.setText("Telefone");
+        quantidadeProdutos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        quantidadeProdutos.setText("Quantidade");
 
-        txt_endereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        txt_email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_data.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        txt_telefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_telefone.addActionListener(new java.awt.event.ActionListener() {
+        txt_quantidadeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_quantidadeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_telefoneActionPerformed(evt);
+                txt_quantidadeProdutoActionPerformed(evt);
             }
         });
 
@@ -81,50 +84,51 @@ public class AdicionarNota extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(endereco)
-                            .addComponent(nome)
-                            .addComponent(email)
-                            .addComponent(telefone))
+                            .addComponent(nomeProduto)
+                            .addComponent(idCliente)
+                            .addComponent(data)
+                            .addComponent(quantidadeProdutos))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_nome)
-                            .addComponent(txt_endereco)
-                            .addComponent(txt_email)
-                            .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_nomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txt_data)
+                            .addComponent(txt_idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txt_quantidadeProduto)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
+                        .addGap(154, 154, 154)
                         .addComponent(jLabel1)))
-                .addGap(18, 18, 18)
-                .addComponent(btn_salvar)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nome))
+                    .addComponent(txt_idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idCliente))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(endereco)
-                    .addComponent(txt_endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeProduto)
+                    .addComponent(txt_nomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email)
-                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(data)
+                    .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefone)
-                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quantidadeProdutos)
+                    .addComponent(txt_quantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_salvar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,20 +136,21 @@ public class AdicionarNota extends javax.swing.JFrame {
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
 
-        Cliente c = new Cliente();
-        c.setNome(txt_nome.getText());
-        c.setEndereco(txt_endereco.getText());
-        c.setEmail(txt_email.getText());
-        c.setTelefone(txt_telefone.getText());
+        Nota n = new Nota();
+        n.setCodNota(Integer.parseInt(txt_idCliente.getText()));
+        n.setCliente(txt_nomeProduto.getText()); 
+        n.setData(txt_data.getText());   
+        n.setQuantidade(Integer.parseInt(txt_quantidadeProduto.getText()));
 
-        ClienteDAO cDAO = new ClienteDAO();
-        cDAO.inserir(c);
+        NotaDAO nDAO = new NotaDAO();
+        nDAO.inserir(n);
+        
         limparFormulario();
     }//GEN-LAST:event_btn_salvarActionPerformed
 
-    private void txt_telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefoneActionPerformed
+    private void txt_quantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_quantidadeProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_telefoneActionPerformed
+    }//GEN-LAST:event_txt_quantidadeProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,14 +189,21 @@ public class AdicionarNota extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JLabel email;
-    private javax.swing.JLabel endereco;
+    private javax.swing.JLabel data;
+    private javax.swing.JLabel idCliente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel nome;
-    private javax.swing.JLabel telefone;
-    private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_endereco;
-    private javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_telefone;
+    private javax.swing.JLabel nomeProduto;
+    private javax.swing.JLabel quantidadeProdutos;
+    private javax.swing.JTextField txt_data;
+    private javax.swing.JTextField txt_idCliente;
+    private javax.swing.JTextField txt_nomeProduto;
+    private javax.swing.JTextField txt_quantidadeProduto;
     // End of variables declaration//GEN-END:variables
+    private void limparFormulario() {
+            txt_idCliente.setText("");
+            txt_nomeProduto.setText("");
+            txt_data.setText("");
+            txt_quantidadeProduto.setText("");           
+    }
 }
+
