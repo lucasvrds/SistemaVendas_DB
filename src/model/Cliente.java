@@ -9,7 +9,7 @@ public class Cliente {
 
     private int codCliente;
     private String nome;
-    private String endereco;
+    private String endereco;    
     private String email;
     private String telefone;
 

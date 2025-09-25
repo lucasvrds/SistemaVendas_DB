@@ -5,8 +5,11 @@
  */
 package view;
 
+import model.Cliente;
 import model.Nota;
+import model.Produto;
 import repository.NotaDAO;
+import repository.ProdutoDAO;
 
 /**
  *
@@ -37,9 +40,9 @@ public class AdicionarNota extends javax.swing.JFrame {
         nomeProduto = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
         quantidadeProdutos = new javax.swing.JLabel();
-        txt_nomeProduto = new javax.swing.JTextField();
         txt_data = new javax.swing.JTextField();
         txt_quantidadeProduto = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,14 +71,19 @@ public class AdicionarNota extends javax.swing.JFrame {
         quantidadeProdutos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         quantidadeProdutos.setText("Quantidade");
 
-        txt_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         txt_data.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         txt_quantidadeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_quantidadeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_quantidadeProdutoActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -94,13 +102,13 @@ public class AdicionarNota extends javax.swing.JFrame {
                             .addComponent(quantidadeProdutos))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_nomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(txt_data)
                             .addComponent(txt_idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txt_quantidadeProduto)
+                                .addComponent(txt_quantidadeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
                         .addComponent(jLabel1)))
@@ -118,7 +126,7 @@ public class AdicionarNota extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeProduto)
-                    .addComponent(txt_nomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(data)
@@ -128,7 +136,7 @@ public class AdicionarNota extends javax.swing.JFrame {
                     .addComponent(quantidadeProdutos)
                     .addComponent(txt_quantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_salvar))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,21 +144,29 @@ public class AdicionarNota extends javax.swing.JFrame {
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
 
+        Cliente c = new Cliente();
         Nota n = new Nota();
-        n.setCodNota(Integer.parseInt(txt_idCliente.getText()));
-        n.setCliente(txt_nomeProduto.getText()); 
-        n.setData(txt_data.getText());   
-        n.setQuantidade(Integer.parseInt(txt_quantidadeProduto.getText()));
-
-        NotaDAO nDAO = new NotaDAO();
-        nDAO.inserir(n);
         
+        
+        c.setCodCliente(Integer.parseInt((txt_idCliente.getText())));
+        
+        
+        
+        
+        
+        n.setData(txt_data.getText());
+        n.setQuantidade(Integer.parseInt((txt_quantidadeProduto.getText())));
+                
         limparFormulario();
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void txt_quantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_quantidadeProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_quantidadeProdutoActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        NotaDAO pDAO = new NotaDAO();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,17 +207,16 @@ public class AdicionarNota extends javax.swing.JFrame {
     private javax.swing.JButton btn_salvar;
     private javax.swing.JLabel data;
     private javax.swing.JLabel idCliente;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nomeProduto;
     private javax.swing.JLabel quantidadeProdutos;
     private javax.swing.JTextField txt_data;
     private javax.swing.JTextField txt_idCliente;
-    private javax.swing.JTextField txt_nomeProduto;
     private javax.swing.JTextField txt_quantidadeProduto;
     // End of variables declaration//GEN-END:variables
     private void limparFormulario() {
             txt_idCliente.setText("");
-            txt_nomeProduto.setText("");
             txt_data.setText("");
             txt_quantidadeProduto.setText("");           
     }
