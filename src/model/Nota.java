@@ -13,9 +13,27 @@ public class Nota {
     private int codNota;
     private String data;    
     private int quantidade;
-    
+    private String nomeProduto;
     private Cliente cliente;
-    private List<ItemNota> itens;
+    private Produto produto;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+    
 
     // Getters e Setters
     public int getCodNota() {
@@ -50,11 +68,4 @@ public class Nota {
         this.cliente = cliente;
     }
 
-    public List<ItemNota> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemNota> itens) {
-        this.itens = itens;
-    }
 }

@@ -44,6 +44,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuRelatorioProdutos.setText("Relatório de Produtos");
         menuRelatorioProdutos.addActionListener(evt -> menu_rltProdutoActionPerformed(evt));
         menuRelatorios.add(menuRelatorioProdutos);
+        
+        menuRelatorioNotas.setText("Relatório de Notas");
+        menuRelatorioNotas.addActionListener(evt -> menu_rltNotaActionPerformed(evt));
+        menuRelatorios.add(menuRelatorioNotas);
 
         menuSair.setText("Sair");
         menuSair.addActionListener(evt -> menuSairActionPerformed(evt));
@@ -73,6 +77,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuRelatorios = new javax.swing.JMenu();
         menuRelatorioClientes = new javax.swing.JMenuItem();
         menuRelatorioProdutos = new javax.swing.JMenuItem();
+        menuRelatorioNotas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +124,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         menuRelatorioProdutos.setText("Relatorio de Produtos");
         menuRelatorios.add(menuRelatorioProdutos);
+
+        menuRelatorioNotas.setText("Relatorio de Notas");
+        menuRelatorios.add(menuRelatorioNotas);
 
         menuBarra.add(menuRelatorios);
 
@@ -191,6 +199,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEditarClientes;
     private javax.swing.JMenuItem menuEditarProdutos;
     private javax.swing.JMenuItem menuRelatorioClientes;
+    private javax.swing.JMenuItem menuRelatorioNotas;
     private javax.swing.JMenuItem menuRelatorioProdutos;
     private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenuItem menuSair;
@@ -229,6 +238,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void menu_rltProdutoActionPerformed(java.awt.event.ActionEvent evt) {
         RelatorioProdutos rltProdutos = new RelatorioProdutos();
         rltProdutos.setVisible(true);
+    }
+    
+    private void menu_rltNotaActionPerformed(java.awt.event.ActionEvent evt) {
+        RelatorioNotas rltNotas = new RelatorioNotas();
+        rltNotas.setVisible(true);
     }
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {

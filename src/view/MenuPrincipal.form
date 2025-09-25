@@ -69,6 +69,11 @@
                 <Property name="text" type="java.lang.String" value="Relatorio de Produtos"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuRelatorioNotas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relatorio de Notas"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

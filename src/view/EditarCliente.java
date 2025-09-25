@@ -108,6 +108,11 @@ public class EditarCliente extends javax.swing.JFrame {
         });
 
         Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Nome Cliente");
 
@@ -132,15 +137,15 @@ public class EditarCliente extends javax.swing.JFrame {
                 .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_telefone, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(txt_email)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_telefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -194,7 +199,7 @@ public class EditarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Atualizar)
                     .addComponent(Excluir))
@@ -244,7 +249,17 @@ public class EditarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ConsultarActionPerformed
 
     private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
-        // TODO add your handling code here:
+        Cliente c = new Cliente();
+        
+        c.setCodCliente(Integer.parseInt(txt_idCliente.getText()));
+        c.setNome(txt_nomeCliente.getText());
+        c.setEndereco(txt_endereco.getText());
+        c.setEmail(txt_email.getText());
+        c.setTelefone(txt_telefone.getText());
+        
+        ClienteDAO cDAO = new ClienteDAO();
+        cDAO.editar(c);
+        limparFormulario();
     }//GEN-LAST:event_AtualizarActionPerformed
 
     private void txt_idCliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idCliente2ActionPerformed
@@ -254,6 +269,13 @@ public class EditarCliente extends javax.swing.JFrame {
     private void txt_telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_telefoneActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        ClienteDAO cDAO = new ClienteDAO();
+        
+        cDAO.excluir(Integer.parseInt(txt_idCliente.getText()));
+        limparFormulario();
+    }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,4 +331,11 @@ public class EditarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nomeCliente;
     private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
+
+    private void limparFormulario() {
+        txt_nomeCliente.setText("");
+        txt_endereco.setText("");
+        txt_email.setText("");
+        txt_telefone.setText("");
+    }
 }

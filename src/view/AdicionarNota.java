@@ -175,7 +175,6 @@ public class AdicionarNota extends javax.swing.JFrame {
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
         NotaDAO n = new NotaDAO();
         try {
-            // Validações
             if (txt_data.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Campo data é obrigatório!");
                 return;
@@ -191,13 +190,15 @@ public class AdicionarNota extends javax.swing.JFrame {
                 return;
             }
             
-            // Criar nova nota
             Nota nota = new Nota();
+            
+            Cliente c = new Cliente();
+            
+            nota.setCliente(c);
+            nota.setNomeProduto(((Produto) cmbProduto.getSelectedItem()).getNome());          
             nota.setData(txt_data.getText().trim());
             nota.setQuantidade(Integer.parseInt(txt_quantidadeProduto.getText().trim()));
-            nota.setCliente((Cliente) cmbProduto.getSelectedItem());
             
-            // Salvar no banco
             if (n.inserir(nota)) {
                 JOptionPane.showMessageDialog(this, "Nota salva com sucesso!");
                 limparFormulario();

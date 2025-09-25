@@ -28,12 +28,13 @@ public class NotaDAO {
     }   
     
     public boolean inserir(Nota nota) {
-        String sql = "INSERT INTO notas (data, quantidade, cod_cliente) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO notas (data, quantidade, cod_cliente, nomeProduto) VALUES (?, ?, ?, ?)";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, nota.getData());
             stmt.setInt(2, nota.getQuantidade());
             stmt.setInt(3, nota.getCliente().getCodCliente());
+            stmt.setString(4, nota.getNomeProduto());
             
             int resultado = stmt.executeUpdate();
             
