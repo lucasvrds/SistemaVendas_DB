@@ -32,14 +32,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuEditarProdutos.setText("Editar Produtos");
         menuEditarProdutos.addActionListener(evt -> menu_edtClienteActionPerformed(evt));
         menuCadastro.add(menuEditarProdutos);
+        
+        menuAdicionarNota.setText("Adicionar Nota");
+        menuAdicionarNota.addActionListener(evt -> menu_AdcNotaActionPerformed(evt));
+        menuCadastro.add(menuAdicionarNota);
 
         menuRelatorioClientes.setText("Relatório de Clientes");
         menuRelatorioClientes.addActionListener(evt -> menu_rltClienteActionPerformed(evt));
         menuRelatorios.add(menuRelatorioClientes);
+        
+        menuRelatorioProdutos.setText("Relatório de Produtos");
+        menuRelatorioProdutos.addActionListener(evt -> menu_rltProdutoActionPerformed(evt));
+        menuRelatorios.add(menuRelatorioProdutos);
 
         menuSair.setText("Sair");
         menuSair.addActionListener(evt -> menuSairActionPerformed(evt));
         menuArquivo.add(menuSair);
+        
 
     }
 
@@ -60,8 +69,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuEditarClientes = new javax.swing.JMenuItem();
         menuCadastroProdutos = new javax.swing.JMenuItem();
         menuEditarProdutos = new javax.swing.JMenuItem();
+        menuAdicionarNota = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuRelatorioClientes = new javax.swing.JMenuItem();
+        menuRelatorioProdutos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,12 +107,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuCadastro.add(menuEditarProdutos);
 
+        menuAdicionarNota.setText("Adicionar Nota");
+        menuCadastro.add(menuAdicionarNota);
+
         menuBarra.add(menuCadastro);
 
         menuRelatorios.setText("Relatórios");
 
         menuRelatorioClientes.setText("Relatorio de Clientes");
         menuRelatorios.add(menuRelatorioClientes);
+
+        menuRelatorioProdutos.setText("Relatorio de Produtos");
+        menuRelatorios.add(menuRelatorioProdutos);
 
         menuBarra.add(menuRelatorios);
 
@@ -165,6 +182,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem menuAdicionarNota;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenuBar menuBarra;
     private javax.swing.JMenu menuCadastro;
@@ -173,6 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEditarClientes;
     private javax.swing.JMenuItem menuEditarProdutos;
     private javax.swing.JMenuItem menuRelatorioClientes;
+    private javax.swing.JMenuItem menuRelatorioProdutos;
     private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenuItem menuSair;
     // End of variables declaration//GEN-END:variables
@@ -196,10 +215,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         EditarExcluirProduto edtProduto = new EditarExcluirProduto();
         edtProduto.setVisible(true);
     }
+    
+    private void menu_AdcNotaActionPerformed(java.awt.event.ActionEvent evt) {
+        AdicionarNota adcNota = new AdicionarNota();
+        adcNota.setVisible(true);
+    }
 
     private void menu_rltClienteActionPerformed(java.awt.event.ActionEvent evt) {
         RelatorioClientes rltClientes = new RelatorioClientes();
         rltClientes.setVisible(true);
+    }
+    
+    private void menu_rltProdutoActionPerformed(java.awt.event.ActionEvent evt) {
+        RelatorioProdutos rltProdutos = new RelatorioProdutos();
+        rltProdutos.setVisible(true);
     }
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {

@@ -47,6 +47,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuEditarProdutosActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuAdicionarNota">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Adicionar Nota"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuRelatorios">
@@ -57,6 +62,11 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuRelatorioClientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relatorio de Clientes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuRelatorioProdutos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relatorio de Produtos"/>
               </Properties>
             </MenuItem>
           </SubComponents>

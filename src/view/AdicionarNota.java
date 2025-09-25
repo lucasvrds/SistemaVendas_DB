@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Nota;
 import model.Produto;
@@ -42,9 +45,9 @@ public class AdicionarNota extends javax.swing.JFrame {
         quantidadeProdutos = new javax.swing.JLabel();
         txt_data = new javax.swing.JTextField();
         txt_quantidadeProduto = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbCliente = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar.setText("Salvar");
@@ -80,10 +83,9 @@ public class AdicionarNota extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbClienteActionPerformed(evt);
             }
         });
 
@@ -108,7 +110,7 @@ public class AdicionarNota extends javax.swing.JFrame {
                                 .addComponent(txt_quantidadeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
                         .addComponent(jLabel1)))
@@ -126,7 +128,7 @@ public class AdicionarNota extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeProduto)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(data)
@@ -143,30 +145,64 @@ public class AdicionarNota extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-
-        Cliente c = new Cliente();
-        Nota n = new Nota();
-        
-        
-        c.setCodCliente(Integer.parseInt((txt_idCliente.getText())));
-        
-        
-        
-        
-        
-        n.setData(txt_data.getText());
-        n.setQuantidade(Integer.parseInt((txt_quantidadeProduto.getText())));
-                
-        limparFormulario();
+        NotaDAO n = new NotaDAO();
+        try {
+            // Validações
+            if (txt_data.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo data é obrigatório!");
+                return;
+            }
+            
+            if (txt_quantidadeProduto.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo quantidade é obrigatório!");
+                return;
+            }
+            
+            if (cmbCliente.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Selecione um cliente!");
+                return;
+            }
+            
+            // Criar nova nota
+            Nota nota = new Nota();
+            nota.setData(txt_data.getText().trim());
+            nota.setQuantidade(Integer.parseInt(txt_quantidadeProduto.getText().trim()));
+            nota.setCliente((Cliente) cmbCliente.getSelectedItem());
+            
+            // Salvar no banco
+            if (n.inserir(nota)) {
+                JOptionPane.showMessageDialog(this, "Nota salva com sucesso!");
+                limparFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar nota!");
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número válido!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void txt_quantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_quantidadeProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_quantidadeProdutoActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        NotaDAO pDAO = new NotaDAO();
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
+        try {
+            List<Produto> produtos = ProdutoDAO.getProdutos();
+            DefaultComboBoxModel<Produto> model = new DefaultComboBoxModel<>();
+            
+            for (Produto produto : produtos) {
+                model.addElement(produto);
+            }
+            
+            cmbCliente.setModel(model);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar produtos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_cmbClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,9 +241,9 @@ public class AdicionarNota extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_salvar;
+    private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JLabel data;
     private javax.swing.JLabel idCliente;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nomeProduto;
     private javax.swing.JLabel quantidadeProdutos;
