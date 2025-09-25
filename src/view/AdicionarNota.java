@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Nota;
 import model.Produto;
+import repository.ClienteDAO;
 import repository.NotaDAO;
 import repository.ProdutoDAO;
 
@@ -25,6 +26,33 @@ public class AdicionarNota extends javax.swing.JFrame {
      */
     public AdicionarNota() {
         initComponents();
+        carregarClientes();
+        carregarProdutos();
+  
+    }  
+    
+    private void carregarClientes() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        List<Cliente> clientes = clienteDAO.getClientes();
+        
+        for (Cliente cliente : clientes) {
+            modelo.addElement(cliente.getNome());
+        }
+        
+        cmbCliente.setModel(modelo);
+    }
+    
+    private void carregarProdutos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        List<Produto> produtos = produtoDAO.getProduto();
+        
+        for (Produto produto : produtos) {
+            modelo.addElement(produto.getNome());
+        }
+        
+        cmbProduto.setModel(modelo);
     }
 
     /**
@@ -38,13 +66,13 @@ public class AdicionarNota extends javax.swing.JFrame {
 
         btn_salvar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txt_idCliente = new javax.swing.JTextField();
-        idCliente = new javax.swing.JLabel();
+        nomeCliente = new javax.swing.JLabel();
         nomeProduto = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
         quantidadeProdutos = new javax.swing.JLabel();
         txt_data = new javax.swing.JTextField();
         txt_quantidadeProduto = new javax.swing.JTextField();
+        cmbProduto = new javax.swing.JComboBox<>();
         cmbCliente = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,10 +88,8 @@ public class AdicionarNota extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Adicionar Nota");
 
-        txt_idCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        idCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        idCliente.setText("IdCliente");
+        nomeCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomeCliente.setText("Nome do Cliente");
 
         nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nomeProduto.setText("Nome do Produto");
@@ -83,11 +109,13 @@ public class AdicionarNota extends javax.swing.JFrame {
             }
         });
 
-        cmbCliente.addActionListener(new java.awt.event.ActionListener() {
+        cmbProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbClienteActionPerformed(evt);
+                cmbProdutoActionPerformed(evt);
             }
         });
+
+        cmbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,17 +127,17 @@ public class AdicionarNota extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nomeProduto)
-                            .addComponent(idCliente)
+                            .addComponent(nomeCliente)
                             .addComponent(data)
                             .addComponent(quantidadeProdutos))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_data)
-                            .addComponent(txt_idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(txt_quantidadeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
@@ -121,14 +149,14 @@ public class AdicionarNota extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idCliente))
+                    .addComponent(nomeCliente)
+                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeProduto)
-                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(data)
@@ -158,7 +186,7 @@ public class AdicionarNota extends javax.swing.JFrame {
                 return;
             }
             
-            if (cmbCliente.getSelectedItem() == null) {
+            if (cmbProduto.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Selecione um cliente!");
                 return;
             }
@@ -167,7 +195,7 @@ public class AdicionarNota extends javax.swing.JFrame {
             Nota nota = new Nota();
             nota.setData(txt_data.getText().trim());
             nota.setQuantidade(Integer.parseInt(txt_quantidadeProduto.getText().trim()));
-            nota.setCliente((Cliente) cmbCliente.getSelectedItem());
+            nota.setCliente((Cliente) cmbProduto.getSelectedItem());
             
             // Salvar no banco
             if (n.inserir(nota)) {
@@ -188,21 +216,9 @@ public class AdicionarNota extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_quantidadeProdutoActionPerformed
 
-    private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
-        try {
-            List<Produto> produtos = ProdutoDAO.getProdutos();
-            DefaultComboBoxModel<Produto> model = new DefaultComboBoxModel<>();
-            
-            for (Produto produto : produtos) {
-                model.addElement(produto);
-            }
-            
-            cmbCliente.setModel(model);
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar produtos: " + e.getMessage());
-        }
-    }//GEN-LAST:event_cmbClienteActionPerformed
+    private void cmbProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProdutoActionPerformed
+
+    }//GEN-LAST:event_cmbProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,17 +258,16 @@ public class AdicionarNota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_salvar;
     private javax.swing.JComboBox<String> cmbCliente;
+    private javax.swing.JComboBox<String> cmbProduto;
     private javax.swing.JLabel data;
-    private javax.swing.JLabel idCliente;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel nomeCliente;
     private javax.swing.JLabel nomeProduto;
     private javax.swing.JLabel quantidadeProdutos;
     private javax.swing.JTextField txt_data;
-    private javax.swing.JTextField txt_idCliente;
     private javax.swing.JTextField txt_quantidadeProduto;
     // End of variables declaration//GEN-END:variables
     private void limparFormulario() {
-            txt_idCliente.setText("");
             txt_data.setText("");
             txt_quantidadeProduto.setText("");           
     }
