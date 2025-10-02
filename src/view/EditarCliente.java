@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import javax.swing.JOptionPane;
@@ -11,7 +6,7 @@ import repository.ClienteDAO;
 
 /**
  *
- * @author lucas
+ * @author lucas e vitor
  */
 public class EditarCliente extends javax.swing.JFrame {
 
@@ -230,7 +225,7 @@ public class EditarCliente extends javax.swing.JFrame {
         ClienteDAO cDAO = new ClienteDAO();
 
         Cliente c = cDAO.getCliente(IdCliente);
-        if(c == null){
+        if (c == null) {
             txt_idCliente2.setText("");
             txt_nomeCliente.setText("");
             txt_endereco.setText("");
@@ -238,8 +233,7 @@ public class EditarCliente extends javax.swing.JFrame {
             txt_telefone.setText("");
 
             JOptionPane.showMessageDialog(this, "Cliente não encontrado!");
-        }
-        else{
+        } else {
             txt_idCliente2.setText(String.valueOf(c.getCodCliente()));
             txt_nomeCliente.setText(c.getNome());
             txt_endereco.setText(c.getEndereco());
@@ -250,13 +244,13 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
         Cliente c = new Cliente();
-        
+
         c.setCodCliente(Integer.parseInt(txt_idCliente.getText()));
         c.setNome(txt_nomeCliente.getText());
         c.setEndereco(txt_endereco.getText());
         c.setEmail(txt_email.getText());
         c.setTelefone(txt_telefone.getText());
-        
+
         ClienteDAO cDAO = new ClienteDAO();
         cDAO.editar(c);
         limparFormulario();
@@ -272,7 +266,7 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
         ClienteDAO cDAO = new ClienteDAO();
-        
+
         cDAO.excluir(Integer.parseInt(txt_idCliente.getText()));
         limparFormulario();
     }//GEN-LAST:event_ExcluirActionPerformed

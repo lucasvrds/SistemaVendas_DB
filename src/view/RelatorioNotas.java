@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.ItemNota;
 import model.Nota;
 import repository.NotaDAO;
 
@@ -21,6 +19,7 @@ public class RelatorioNotas extends javax.swing.JFrame {
      */
     public RelatorioNotas() {
         initComponents();
+        preencheTabela();
     }
 
     /**
@@ -43,13 +42,10 @@ public class RelatorioNotas extends javax.swing.JFrame {
 
         tbl_notas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Id", "Nome do Cliente", "Nome do Produto", "Data", "Quantidade"
+                "Código", "Cliente", "Produto", "Data", "Quantidade"
             }
         ));
         jScrollPane1.setViewportView(tbl_notas);
@@ -122,21 +118,22 @@ public class RelatorioNotas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void preencheTabela() {
-    NotaDAO nDAO = new NotaDAO();
-    List<Nota> listaNotas = nDAO.listarTodas();
+        NotaDAO nDAO = new NotaDAO();
+        List<Nota> listaNotas = nDAO.listarTodas();
+        DefaultTableModel model = (DefaultTableModel) tbl_notas.getModel();
 
-    DefaultTableModel model = (DefaultTableModel) tbl_notas.getModel();
-    model.setRowCount(0);
+        DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    for (Nota n : listaNotas) {
-        model.addRow(new Object[]{
-            n.getCodNota(),
-            n.getCliente(),
-            n.getProduto(),
-            n.getData(),
-            n.getQuantidade(),
-        });
+        for (Nota nota : listaNotas) {
+            for (ItemNota item : nota.getItens()) {
+                model.addRow(new Object[]{
+                    nota.getCodNota(),
+                    nota.getCliente().getNome(),
+                    item.getCodProduto().getNome(),
+                    nota.getDataVenda().format(formatadorData),
+                    item.getQuantidade()
+                });
+            }
+        }
     }
-}
-    
 }

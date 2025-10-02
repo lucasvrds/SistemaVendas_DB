@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.util.List;
@@ -12,7 +7,7 @@ import repository.ClienteDAO;
 
 /**
  *
- * @author lucas
+ * @author lucas e vitor
  */
 public class RelatorioClientes extends javax.swing.JFrame {
 
@@ -122,23 +117,23 @@ public class RelatorioClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_clientes;
     // End of variables declaration//GEN-END:variables
-  
+
     private void preencheTabela() {
-    ClienteDAO cDAO = new ClienteDAO();
-    List<Cliente> listaClientes = cDAO.getClientes();
+        ClienteDAO cDAO = new ClienteDAO();
+        List<Cliente> listaClientes = cDAO.getClientes();
 
-    DefaultTableModel model = (DefaultTableModel) tbl_clientes.getModel();
-    model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) tbl_clientes.getModel();
+        model.setRowCount(0);
 
-    for (Cliente c : listaClientes) {
-        model.addRow(new Object[]{
-            c.getCodCliente(),
-            c.getNome(),
-            c.getEndereco(),
-            c.getEmail(),
-            c.getTelefone()
-        });
+        for (Cliente c : listaClientes) {
+            model.addRow(new Object[]{
+                c.getCodCliente(),
+                c.getNome(),
+                c.getEndereco(),
+                c.getEmail(),
+                c.getTelefone()
+            });
+        }
     }
-}
 
 }

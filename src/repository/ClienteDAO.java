@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lucas & vitor
  */
 public class ClienteDAO {
+
     private Conexao conexao;
     private Connection conn;
 
@@ -73,14 +74,29 @@ public class ClienteDAO {
         }
     }
 
-    public void excluir(int codCliente) {
-        String sql = "DELETE FROM cliente WHERE codCliente = ?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, codCliente);
-            stmt.execute();
+    public boolean excluir(int codCliente) {
+        String sqlCheck = "SELECT COUNT(*) FROM nota WHERE codCliente = ?";
+        try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck)) {
+            stmtCheck.setInt(1, codCliente);
+            try (ResultSet rs = stmtCheck.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    System.out.println("Tentativa de excluir cliente com notas associadas.");
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao verificar notas do cliente: " + ex.getMessage());
+            return false;
+        }
+
+        String sqlDelete = "DELETE FROM cliente WHERE codCliente = ?";
+        try (PreparedStatement stmtDelete = conn.prepareStatement(sqlDelete)) {
+            stmtDelete.setInt(1, codCliente);
+            int resultado = stmtDelete.executeUpdate();
+            return resultado > 0;
         } catch (SQLException ex) {
             System.out.println("Erro ao excluir cliente: " + ex.getMessage());
+            return false;
         }
     }
 

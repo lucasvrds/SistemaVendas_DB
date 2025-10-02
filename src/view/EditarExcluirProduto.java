@@ -239,13 +239,13 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
 
     private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
         Produto p = new Produto();
-        
+
         p.setCodProduto(Integer.parseInt(txt_codigoProduto1.getText()));
         p.setNome(txt_nome.getText());
         p.setDescricao(txt_descricao.getText());
         p.setPrecoVenda(Double.parseDouble(txt_precoVenda.getText()));
-        p.setQtdEstoque(Integer.parseInt(txt_quantidadeEstoque.getText()));
-        
+        p.setQuantidadeEstoque(Integer.parseInt(txt_quantidadeEstoque.getText()));
+
         ProdutoDAO pDAO = new ProdutoDAO();
         pDAO.editar(p);
         limparFormulario();
@@ -259,19 +259,18 @@ public class EditarExcluirProduto extends javax.swing.JFrame {
         if (p == null) {
             limparFormulario();
             JOptionPane.showMessageDialog(this, "Produto não encontrada!");
-        }
-        else{
+        } else {
             txt_codigoProduto1.setText(String.valueOf(p.getCodProduto()));
             txt_nome.setText(p.getNome());
             txt_descricao.setText(p.getDescricao());
             txt_precoVenda.setText(String.valueOf(p.getPrecoVenda()));
-            txt_quantidadeEstoque.setText(String.valueOf(p.getQtdEstoque()));
+            txt_quantidadeEstoque.setText(String.valueOf(p.getQuantidadeEstoque()));
         }
     }//GEN-LAST:event_ConsultarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ProdutoDAO pDAO = new ProdutoDAO();
-        
+
         pDAO.excluir(Integer.parseInt(txt_codigoProduto.getText()));
         limparFormulario();
     }//GEN-LAST:event_jButton3ActionPerformed

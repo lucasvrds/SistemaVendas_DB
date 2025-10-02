@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 /**
@@ -32,7 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuEditarProdutos.setText("Editar Produtos");
         menuEditarProdutos.addActionListener(evt -> menu_edtClienteActionPerformed(evt));
         menuCadastro.add(menuEditarProdutos);
-        
+
         menuAdicionarNota.setText("Adicionar Nota");
         menuAdicionarNota.addActionListener(evt -> menu_AdcNotaActionPerformed(evt));
         menuCadastro.add(menuAdicionarNota);
@@ -40,19 +35,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuRelatorioClientes.setText("Relatório de Clientes");
         menuRelatorioClientes.addActionListener(evt -> menu_rltClienteActionPerformed(evt));
         menuRelatorios.add(menuRelatorioClientes);
-        
+
         menuRelatorioProdutos.setText("Relatório de Produtos");
         menuRelatorioProdutos.addActionListener(evt -> menu_rltProdutoActionPerformed(evt));
         menuRelatorios.add(menuRelatorioProdutos);
-        
+
         menuRelatorioNotas.setText("Relatório de Notas");
         menuRelatorioNotas.addActionListener(evt -> menu_rltNotaActionPerformed(evt));
         menuRelatorios.add(menuRelatorioNotas);
 
+        menuExcluirNota.setText("Excluir Nota");
+        menuExcluirNota.addActionListener(evt -> menu_excNotaActionPerformed(evt));
+        menuCadastro.add(menuExcluirNota);
+
         menuSair.setText("Sair");
         menuSair.addActionListener(evt -> menuSairActionPerformed(evt));
         menuArquivo.add(menuSair);
-        
 
     }
 
@@ -74,6 +72,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadastroProdutos = new javax.swing.JMenuItem();
         menuEditarProdutos = new javax.swing.JMenuItem();
         menuAdicionarNota = new javax.swing.JMenuItem();
+        menuExcluirNota = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuRelatorioClientes = new javax.swing.JMenuItem();
         menuRelatorioProdutos = new javax.swing.JMenuItem();
@@ -113,7 +112,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadastro.add(menuEditarProdutos);
 
         menuAdicionarNota.setText("Adicionar Nota");
+        menuAdicionarNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAdicionarNotaActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuAdicionarNota);
+
+        menuExcluirNota.setText("Excluir Nota");
+        menuExcluirNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExcluirNotaActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuExcluirNota);
 
         menuBarra.add(menuCadastro);
 
@@ -153,6 +165,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void menuEditarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarProdutosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuEditarProdutosActionPerformed
+
+    private void menuExcluirNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExcluirNotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuExcluirNotaActionPerformed
+
+    private void menuAdicionarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdicionarNotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuAdicionarNotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +218,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCadastroProdutos;
     private javax.swing.JMenuItem menuEditarClientes;
     private javax.swing.JMenuItem menuEditarProdutos;
+    private javax.swing.JMenuItem menuExcluirNota;
     private javax.swing.JMenuItem menuRelatorioClientes;
     private javax.swing.JMenuItem menuRelatorioNotas;
     private javax.swing.JMenuItem menuRelatorioProdutos;
@@ -224,7 +245,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         EditarExcluirProduto edtProduto = new EditarExcluirProduto();
         edtProduto.setVisible(true);
     }
-    
+
     private void menu_AdcNotaActionPerformed(java.awt.event.ActionEvent evt) {
         AdicionarNota adcNota = new AdicionarNota();
         adcNota.setVisible(true);
@@ -234,12 +255,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         RelatorioClientes rltClientes = new RelatorioClientes();
         rltClientes.setVisible(true);
     }
-    
+
     private void menu_rltProdutoActionPerformed(java.awt.event.ActionEvent evt) {
         RelatorioProdutos rltProdutos = new RelatorioProdutos();
         rltProdutos.setVisible(true);
     }
-    
+
     private void menu_rltNotaActionPerformed(java.awt.event.ActionEvent evt) {
         RelatorioNotas rltNotas = new RelatorioNotas();
         rltNotas.setVisible(true);
@@ -247,6 +268,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
+    }
+
+    private void menu_excNotaActionPerformed(java.awt.event.ActionEvent evt) {
+        ExcluirNota excNota = new ExcluirNota();
+        excNota.setVisible(true);
     }
 
 }

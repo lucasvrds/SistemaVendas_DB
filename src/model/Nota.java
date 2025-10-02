@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import model.ItemNota;
 import model.Cliente;
 import java.util.Date;
@@ -11,31 +12,27 @@ import java.util.List;
  */
 public class Nota {
     private int codNota;
-    private String data;    
-    private int quantidade;
-    private String nomeProduto;
-    private Cliente cliente;
-    private Produto produto;
+    private Cliente codCliente;
+    private Produto codProduto;
+    private LocalDate dataVenda;
+    private List<ItemNota> itens;
 
-    public Produto getProduto() {
-        return produto;
+    public Cliente getCodCliente() {
+        return codCliente;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-    
-
-    public String getNomeProduto() {
-        return nomeProduto;
+    public void setCodCliente(Cliente codCliente) {
+        this.codCliente = codCliente;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public Produto getCodProduto() {
+        return codProduto;
     }
-    
 
-    // Getters e Setters
+    public void setCodProduto(Produto codProduto) {
+        this.codProduto = codProduto;
+    }
+
     public int getCodNota() {
         return codNota;
     }
@@ -44,28 +41,27 @@ public class Nota {
         this.codNota = codNota;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public Cliente getCliente() {
-        return cliente;
+        return codCliente;
     }
 
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        this.codCliente = cliente;
     }
 
+    public LocalDate getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(LocalDate dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    public List<ItemNota> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemNota> itens) {
+        this.itens = itens;
+    }   
 }

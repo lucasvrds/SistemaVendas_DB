@@ -2,12 +2,15 @@ package repository;
 
 import conexao.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import model.Cliente;
 import model.ItemNota;
 import model.Nota;
@@ -18,121 +21,175 @@ import model.Produto;
  * @author lucas e vitor
  */
 public class NotaDAO {
-    
+
     private Conexao conexao;
     private Connection conn;
 
     public NotaDAO() {
         this.conexao = new Conexao();
         this.conn = this.conexao.getConexao();
-    }   
-    
+    }
+
     public boolean inserir(Nota nota) {
-        String sql = "INSERT INTO notas (data, quantidade, cod_cliente, nomeProduto) VALUES (?, ?, ?, ?)";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, nota.getData());
-            stmt.setInt(2, nota.getQuantidade());
-            stmt.setInt(3, nota.getCliente().getCodCliente());
-            stmt.setString(4, nota.getNomeProduto());
-            
-            int resultado = stmt.executeUpdate();
-            
-            if (resultado > 0) {
-                ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    nota.setCodNota(rs.getInt(1));
+        String sqlNota = "INSERT INTO nota (codCliente, dataVenda) VALUES (?, ?)";
+        String sqlItem = "INSERT INTO itemnota (codNota, codProduto, quantidade) VALUES (?, ?, ?)";
+
+        try {
+            conn.setAutoCommit(false);
+
+            long idNotaGerada;
+            try (PreparedStatement stmt = conn.prepareStatement(sqlNota, Statement.RETURN_GENERATED_KEYS)) {
+                stmt.setInt(1, nota.getCliente().getCodCliente());
+                stmt.setDate(2, Date.valueOf(nota.getDataVenda()));
+                stmt.executeUpdate();
+
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idNotaGerada = rs.getLong(1);
+                    } else {
+                        throw new SQLException("Falha ao criar a nota, nenhum ID obtido.");
+                    }
                 }
-                return true;
             }
-            return false;
-            
+            for (ItemNota item : nota.getItens()) {
+                try (PreparedStatement stmt = conn.prepareStatement(sqlItem)) {
+                    stmt.setLong(1, idNotaGerada);
+                    stmt.setInt(2, item.getCodProduto().getCodProduto());
+                    stmt.setInt(3, item.getQuantidade());
+                    stmt.executeUpdate();
+                }
+            }
+            conn.commit();
+            return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return false;
         }
     }
-    
-    public Nota buscarPorId(int codNota) {
-        String sql = "SELECT * FROM notas WHERE cod_nota = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, codNota);
-            ResultSet rs = stmt.executeQuery();
-            
-            if (rs.next()) {
-                Nota nota = new Nota();
-                nota.setCodNota(rs.getInt("cod_nota"));
-                nota.setData(rs.getString("data"));
-                nota.setQuantidade(rs.getInt("quantidade"));
-                
-                ClienteDAO clienteDAO = new ClienteDAO();
-                Cliente cliente = clienteDAO.getCliente(rs.getInt("cod_cliente"));
-                nota.setCliente(cliente);
-                
-                return nota;
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        return null;
-    }
-    
+
     public List<Nota> listarTodas() {
-        List<Nota> notas = new ArrayList<>();
-        String sql = "SELECT * FROM notas";
-        
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            
+        String sql = "SELECT " + "n.codNota, n.dataVenda, " + "c.codCliente, c.nome AS nome_cliente, "
+                + "i.codItemNota, i.quantidade, "
+                + "p.codProduto, p.nome AS nome_produto "
+                + "FROM nota n "
+                + "JOIN cliente c ON n.codCliente = c.codCliente "
+                + "JOIN itemnota i ON n.codNota = i.codNota "
+                + "JOIN produto p ON i.codProduto = p.codProduto "
+                + "ORDER BY n.codNota DESC";
+
+        Map<Integer, Nota> notasMap = new LinkedHashMap<>();
+
+        try (PreparedStatement stmt = this.conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
-                Nota nota = new Nota();
-                nota.setCodNota(rs.getInt("cod_nota"));
-                nota.setData(rs.getString("data"));
-                nota.setQuantidade(rs.getInt("quantidade"));
-                
-                ClienteDAO clienteDAO = new ClienteDAO();
-                Cliente cliente = clienteDAO.getCliente(rs.getInt("cod_cliente"));
-                nota.setCliente(cliente);
-                
-                notas.add(nota);
+                int idNota = rs.getInt("codNota");
+                Nota nota = notasMap.get(idNota);
+
+                if (nota == null) {
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(rs.getInt("codCliente"));
+                    cliente.setNome(rs.getString("nome_cliente"));
+
+                    nota = new Nota();
+                    nota.setCodNota(idNota);
+                    nota.setDataVenda(rs.getDate("dataVenda").toLocalDate());
+                    nota.setCliente(cliente);
+                    nota.setItens(new ArrayList<>());
+
+                    notasMap.put(idNota, nota);
+                }
+
+                Produto produto = new Produto();
+                produto.setCodProduto(rs.getInt("codProduto"));
+                produto.setNome(rs.getString("nome_produto"));
+
+                ItemNota item = new ItemNota();
+                item.setCodItemNota(rs.getInt("codItemNota"));
+                item.setQuantidade(rs.getInt("quantidade"));
+                item.setCodProduto(produto);
+                nota.getItens().add(item);
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        return notas;
+        return new ArrayList<>(notasMap.values());
     }
-    
-    public boolean atualizar(Nota nota) {
-        String sql = "UPDATE notas SET data = ?, quantidade = ?, cod_cliente = ? WHERE cod_nota = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nota.getData());
-            stmt.setInt(2, nota.getQuantidade());
-            stmt.setInt(3, nota.getCliente().getCodCliente());
-            stmt.setInt(4, nota.getCodNota());
-            
-            return stmt.executeUpdate() > 0;
-            
+
+    public boolean excluir(int codNota) {
+        String sqlSelectItem = "SELECT codProduto, quantidade FROM itemnota WHERE codNota = ?";
+        String sqlUpdateEstoque = "UPDATE produto SET quantidadeEstoque = quantidadeEstoque + ? WHERE codProduto = ?";
+        String sqlDeleteItem = "DELETE FROM itemnota WHERE codNota = ?";
+        String sqlDeleteNota = "DELETE FROM nota WHERE codNota = ?";
+
+        try {
+            conn.setAutoCommit(false);
+
+            List<ItemNota> itensParaDevolver = new ArrayList<>();
+            try (PreparedStatement stmt = conn.prepareStatement(sqlSelectItem)) {
+                stmt.setInt(1, codNota);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Produto p = new Produto();
+                        p.setCodProduto(rs.getInt("codProduto"));
+
+                        ItemNota item = new ItemNota();
+                        item.setCodProduto(p);
+                        item.setQuantidade(rs.getInt("quantidade"));
+                        itensParaDevolver.add(item);
+                    }
+                }
+            }
+
+            if (itensParaDevolver.isEmpty()) {
+                try (PreparedStatement stmt = conn.prepareStatement(sqlDeleteNota)) {
+                    stmt.setInt(1, codNota);
+                    int rowsAffected = stmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        conn.commit();
+                        return true;
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sqlUpdateEstoque)) {
+                for (ItemNota item : itensParaDevolver) {
+                    stmt.setInt(1, item.getQuantidade());
+                    stmt.setInt(2, item.getCodProduto().getCodProduto());
+                    stmt.addBatch();
+                }
+                stmt.executeBatch();
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sqlDeleteItem)) {
+                stmt.setInt(1, codNota);
+                stmt.executeUpdate();
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sqlDeleteNota)) {
+                stmt.setInt(1, codNota);
+                stmt.executeUpdate();
+            }
+
+            conn.commit();
+            return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
-        }
-    }
-    
-    public boolean deletar(int codNota) {
-        String sql = "DELETE FROM notas WHERE cod_nota = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, codNota);
-            return stmt.executeUpdate() > 0;
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return false;
         }
     }

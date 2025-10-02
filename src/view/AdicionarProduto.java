@@ -1,4 +1,3 @@
-
 package view;
 
 import model.Produto;
@@ -131,15 +130,15 @@ public class AdicionarProduto extends javax.swing.JFrame {
 
     private void AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarActionPerformed
         Produto p = new Produto();
-        
+
         p.setNome(txt_nome.getText());
         p.setDescricao(txt_descricao.getText());
         p.setPrecoVenda(Double.parseDouble(txt_precoVenda.getText()));
-        p.setQtdEstoque(Integer.parseInt(txt_quantidadeEstoque.getText()));
-        
+        p.setQuantidadeEstoque(Integer.parseInt(txt_quantidadeEstoque.getText()));
+
         ProdutoDAO pDAO = new ProdutoDAO();
         pDAO.inserir(p);
-        
+
         limparFormulario();
     }//GEN-LAST:event_AdicionarActionPerformed
 

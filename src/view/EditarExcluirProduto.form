@@ -68,17 +68,15 @@
                               <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="txt_precoVenda" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txt_quantidadeEstoque" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txt_precoVenda" min="-2" pref="150" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="txt_quantidadeEstoque" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

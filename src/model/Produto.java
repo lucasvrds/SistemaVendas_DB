@@ -5,11 +5,12 @@ package model;
  * @author vitor e lucas
  */
 public class Produto {
+
     private int codProduto;
     private String nome;
     private String descricao;
     private double precoVenda;
-    private int qtdEstoque;
+    private int quantidadeEstoque;
 
     public int getCodProduto() {
         return codProduto;
@@ -31,8 +32,8 @@ public class Produto {
         return descricao;
     }
 
-    public void setDescricao(String descrição) {
-        this.descricao = descrição;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public double getPrecoVenda() {
@@ -43,13 +44,17 @@ public class Produto {
         this.precoVenda = precoVenda;
     }
 
-    public int getQtdEstoque() {
-        return qtdEstoque;
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
     }
 
-    public void setQtdEstoque(int qtdEstoque) {
-        this.qtdEstoque = qtdEstoque;
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+
 }

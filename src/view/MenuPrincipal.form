@@ -51,6 +51,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Nota"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAdicionarNotaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuExcluirNota">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Excluir Nota"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuExcluirNotaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

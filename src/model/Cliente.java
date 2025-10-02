@@ -1,4 +1,3 @@
-
 package model;
 
 /**
@@ -9,7 +8,7 @@ public class Cliente {
 
     private int codCliente;
     private String nome;
-    private String endereco;    
+    private String endereco;
     private String email;
     private String telefone;
 
@@ -52,6 +51,10 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 
 }
